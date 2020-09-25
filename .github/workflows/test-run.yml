@@ -1,0 +1,67 @@
+name: test-run
+on:
+  push:
+    branches:
+      - "**"
+    tags-ignore:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  test-run:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm run release
+      - name: before icu
+        id: before
+        uses: ./.github/actions/icu-test
+      - name: run setup-icu
+        uses: ./
+        id: setup-icu
+      - name: after icu
+        id: after
+        uses: ./.github/actions/icu-test
+      - uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: test-run - ${{ matrix.os }}
+          description: |
+            icu-data-dir: `${{ steps.setup-icu.outputs.icu-data-dir }}`
+            before en: ${{ steps.before.outputs.en }}
+            before ja: ${{ steps.before.outputs.ja }}
+            after en: ${{ steps.after.outputs.en }}
+            after ja: ${{ steps.after.outputs.ja }}
+
+  test-run-noexport:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm run release
+      - name: before icu
+        id: before
+        uses: ./.github/actions/icu-test
+      - name: run setup-icu
+        uses: ./
+        id: setup-icu
+        with:
+          noexport: true
+      - name: after icu
+        id: after
+        uses: ./.github/actions/icu-test
+      - uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: test-run-noexport
+          description: |
+            icu-data-dir: `${{ steps.setup-icu.outputs.icu-data-dir }}`
+            before en: ${{ steps.before.outputs.en }}
+            before ja: ${{ steps.before.outputs.ja }}
+            after en: ${{ steps.after.outputs.en }}
+            after ja: ${{ steps.after.outputs.ja }}

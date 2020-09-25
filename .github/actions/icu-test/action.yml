@@ -1,0 +1,11 @@
+name: icu-test
+description: icu-test
+runs:
+  using: node12
+  main: index.js
+
+outputs:
+  en:
+    description: english
+  ja:
+    description: japanese

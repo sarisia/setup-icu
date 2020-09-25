@@ -1,0 +1,21 @@
+name: 'Setup ICU dataset for JavaScript Action'
+description: "Setup full-icu dataset for the Node.js runtime GitHub Actions uses"
+author: sarisia
+
+runs:
+  using: 'node12'
+  main: 'lib/index.js'
+
+inputs:
+  noexport:
+    description: 'Set true to avoid exporting `NODE_ICU_DATA` environment variable'
+    required: false
+    default: 'false'
+
+outputs:
+  icu-data-dir:
+    description: 'Path of the directory contains ICU data'
+
+branding:
+  icon: globe
+  color: blue

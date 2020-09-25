@@ -1,0 +1,28 @@
+{
+  "name": "setup-full-icu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@actions/core": "^1.2.6"
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "typescript": "^4.0.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "release": "npm ci && npm run build && npm prune --production",
+    "version": "npm run release && git add ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarisia/setup-full-icu.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sarisia/setup-full-icu/issues"
+  },
+  "homepage": "https://github.com/sarisia/setup-full-icu#readme"
+}
