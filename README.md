@@ -2,6 +2,13 @@
 
 Setup full-icu dataset for the Node.js runtime GitHub Actions uses.
 
+# Deprecated
+
+GitHub Actions [now supports `node16` runtime](https://github.blog/changelog/2022-05-20-actions-can-now-run-in-a-node-js-16-runtime/)
+for JavaScript actions and Node.js 16 has `full-icu` support by default.
+
+Consider [migrating your actions to use `node16`](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-javascript-actions).
+
 # Why do we need this?
 
 GitHub Actions' JavaScript action supports only Node.js 12 as a runtime.
